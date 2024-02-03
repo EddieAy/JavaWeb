@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>员工列表 - OA系统</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .content {
+            width: 80%; /* 或者你希望的宽度 */
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 2px solid black ;
+
+        }
+        th, td {
+            padding: 1px;
+            text-align: center;
+        }
+        #add {
+            margin-top: 100px;
+            display: block;
+        }
+        /*a {*/
+        /*    margin-top: 400px;*/
+        /*    display: block; !* 将inline-block改为block *!*/
+        /*}*/
+    </style>
+</head>
+<body>
+<script>
+    function del(empno){
+
+        if(window.confirm('亲，确认要删除吗，删除后不可恢复')){
+            document.location.href = '/oa/delete?empno=' + empno
+        }
+    }
+</script>
+
+<div class='content'>
+    <h1>部门列表</h1>
+    <table>
+        <tr>
+            <th>姓名</th>
+            <th>员工编号</th>
+            <th>职位</th>
+            <th>工资</th>
+            <th>操作</th>
+        </tr>
+        <!-- 数据行 -->
+        <tr>
+            <td>A</td>
+            <td>A1</td>
+            <td>A2</td>
+            <td>A3</td>
+            <td>
+                <a href='javascript:void(0)' onclick=del(10)>删除</a>
+                <a href='edit.html'>编辑</a>
+                <a href='detail.html'>详情</a>
+            </td>
+        </tr>
+
+    </table>
+    <a href='add.html' id='add'>新增部门</a>
+</div>
+</body>
+</html>

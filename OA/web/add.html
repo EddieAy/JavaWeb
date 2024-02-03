@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>新增部门 - OA系统</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* 使body占满整个视口的高度 */
+            margin: 0; /* 移除默认的margin */
+            font-family: Arial, sans-serif; /* 设置字体 */
+            background-color: #f4f4f4; /* 设置背景颜色 */
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* 左对齐 */
+            background-color: white; /* 背景颜色 */
+            padding: 20px; /* 内边距 */
+            border-radius: 8px; /* 圆角边框 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+            max-width: 400px; /* 最大宽度 */
+        }
+        h1 {
+            margin-bottom: 20px; /* 与表单的间距 */
+        }
+        input[type='text'],
+        input[type='submit'] {
+            width: calc(100% - 20px); /* 宽度减去padding的值 */
+            padding: 10px; /* 内边距 */
+            margin-bottom: 10px; /* 间距 */
+            border: 1px solid #ccc; /* 边框颜色 */
+            border-radius: 5px; /* 圆角 */
+        }
+        input[type='submit'] {
+            background-color: #4CAF50; /* 按钮背景色 */
+            color: white; /* 按钮文字颜色 */
+            cursor: pointer; /* 鼠标形状 */
+        }
+        input[type='submit']:hover {
+            background-color: #45a049; /* 鼠标悬停时的背景色 */
+        }
+        label {
+            font-weight: bold; /* 字体加粗 */
+        }
+    </style>
+</head>
+<body>
+<h1>新增部门</h1>
+<form action='list.html' method='post'>
+    <label for='ename'>员工姓名:</label><input type='text' id='ename' name='ename'>
+    <label for='empno'>员工编号:</label><input type='text' id='empno' name='empno'>
+    <label for='job'>职位:</label><input type='text' id='job' name='job'>
+    <label for='mgr'>上司:</label><input type='text' id='mgr' name='mgr'>
+    <label for='hiredate'>招聘时间:</label><input type='text' id='hiredate' name='hiredate'>
+    <label for='sal'>工资:</label><input type='text' id='sal' name='sal'>
+    <label for='deptno'>部门编号:</label><input type='text' id='deptno' name='deptno'>
+    <input type='submit' value='提交' align='center'>
+</form>
+</body>
+</html>

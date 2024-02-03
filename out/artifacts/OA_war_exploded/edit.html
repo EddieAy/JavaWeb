@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>修改部门信息 - OA系统</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f7f7f7; /* 页面背景色 */
+            font-family: Arial, sans-serif; /* 字体 */
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* 左对齐 */
+            background-color: #fff; /* 表单背景色 */
+            padding: 20px; /* 表单内边距 */
+            border-radius: 8px; /* 圆角边框 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+            max-width: 300px; /* 表单最大宽度 */
+        }
+        h1 {
+            color: #333; /* 标题颜色 */
+            margin-bottom: 20px; /* 与表单的间距 */
+        }
+        input[type='text'],
+        input[type='submit'] {
+            width: calc(100% - 20px); /* 输入框宽度 */
+            padding: 10px; /* 输入框内边距 */
+            margin-bottom: 10px; /* 输入框间距 */
+            border: 1px solid #ccc; /* 边框颜色 */
+            border-radius: 5px; /* 圆角 */
+        }
+        input[type='submit'] {
+            background-color: #5cb85c; /* 提交按钮背景色 */
+            color: white; /* 提交按钮文字颜色 */
+            cursor: pointer; /* 鼠标形状 */
+            border-color: #4cae4c; /* 边框颜色 */
+        }
+        input[type='submit']:hover {
+            background-color: #449d44; /* 鼠标悬停时背景色 */
+        }
+        .readonly-field {
+            background-color: #f3f3f3; /* 只读字段的背景色 */
+            border: 1px solid #ddd; /* 边框颜色 */
+            padding: 10px; /* 内边距 */
+            margin-bottom: 10px; /* 间距 */
+            border-radius: 5px; /* 圆角 */
+        }
+    </style>
+</head>
+<body>
+<h1>修改部门信息</h1>
+<form action='list.html' method='post'>
+    <!-- 注意：id字段是隐藏的，因为用户不应修改它 -->
+    <input type='hidden' id='id' name='id' value='部门ID'>
+
+    <label>员工编号:</label><input type='text' class='readonly-field' value='EMPNO' readonly><br>
+    <label>员工姓名:</label><input type='text' class='readonly-field' value='ENAME' readonly><br>
+    <label>招聘日期:</label><input type='text' class='readonly-field' value='HIREDATE' readonly><br>
+
+    <label for='job'>职位:</label><input type='text' id='job' name='job'>
+    <label for='sal'>工资:</label><input type='text' id='sal' name='sal'>
+    <label for='mgr'>经理:</label><input type='text' id='mgr' name='mgr'>
+    <label for='deptno'>部门编号:</label><input type='text' id='deptno' name='deptno'>
+
+    <input type='submit' value='提交'>
+</form>
+</body>
+</html>
