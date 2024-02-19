@@ -46,7 +46,8 @@ public class DeleteServlet extends HttpServlet {
 
 
         if(affectedRows == 1){
-            request.getRequestDispatcher("/employee").forward(request,response);
+//            request.getRequestDispatcher("/employee").forward(request,response);
+            response.sendRedirect("/oa/employee");
         }
 
 /*        else {

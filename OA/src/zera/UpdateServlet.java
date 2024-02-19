@@ -45,7 +45,9 @@ public class UpdateServlet extends HttpServlet {
         }
 
         if(count == 1){
-            req.getRequestDispatcher("/employee").forward(req,resp);
+//            req.getRequestDispatcher("/employee").forward(req,resp);
+            resp.sendRedirect(projectName + "/employee");
+
         }else {
             req.getRequestDispatcher("./error.html").forward(req,resp);
         }

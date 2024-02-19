@@ -73,7 +73,7 @@ public class AddServlet extends HttpServlet {
         out.println("    </style>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<h1>新增部门</h1>");
+        out.println("<h1>新增员工</h1>");
         out.println("<form action='"+projectName+"/save' method='post'>");
         out.println("    <label for='ename'>员工姓名:</label><input type='text' id='ename' name='ename'>");
         out.println("    <label for='empno'>员工编号:</label><input type='text' id='empno' name='empno'>");

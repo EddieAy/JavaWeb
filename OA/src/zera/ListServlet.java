@@ -123,7 +123,7 @@ public class ListServlet extends HttpServlet {
 
 
         out.println("    </table>");
-        out.println("    <a href='"+projectName+"/add' id='add'>新增部门</a>");
+        out.println("    <a href='"+projectName+"/add' id='add'>新增员工</a>");
         out.println("</div>");
         out.println("</body>");
         out.println("</html>");
