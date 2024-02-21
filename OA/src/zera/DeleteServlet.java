@@ -16,8 +16,7 @@ public class DeleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String empno = request.getParameter("empno");
-
-
+        String projectName = request.getContextPath();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -47,7 +46,7 @@ public class DeleteServlet extends HttpServlet {
 
         if(affectedRows == 1){
 //            request.getRequestDispatcher("/employee").forward(request,response);
-            response.sendRedirect("/oa/employee");
+            response.sendRedirect(projectName + "/employee");
         }
 
 /*        else {

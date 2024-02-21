@@ -71,7 +71,7 @@ public class ListServlet extends HttpServlet {
         out.println("<script>");
         out.println("                function del(empno){");
         out.println("            if(window.confirm('亲，确认要删除吗，删除后不可恢复')){");
-        out.println("                document.location.href = '/oa/delete?empno=' + empno");
+        out.println("                document.location.href = '"+projectName+"/delete?empno=' + empno");
         out.println("            }");
         out.println("        }");
         out.println("</script>");
