@@ -5,14 +5,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import util.DBUtil;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
-
 @WebServlet(value = {"/login"})
 public class LoginServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String projectName = request.getContextPath();
@@ -87,7 +86,5 @@ public class LoginServlet extends HttpServlet {
         out.println("</div>");
         out.println("</body>");
         out.println("</html>");
-
     }
-
 }

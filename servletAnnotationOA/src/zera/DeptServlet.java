@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import util.DBUtil;
 
 import java.io.IOException;
@@ -21,8 +22,9 @@ import java.sql.SQLException;
 public class DeptServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String[] values = {"/employee","/detail","/add","/save","/delete","/edit","/update","/login","/judgeLogin"};
+        String[] values = {"/employee","/detail","/add","/save","/delete","/edit","/update"};
         String servletPath = req.getServletPath();
+
         if(values[0].equals(servletPath)){
             doList(req,resp);
         }else if(values[1].equals(servletPath)){
@@ -37,16 +39,10 @@ public class DeptServlet extends HttpServlet {
             doEdit(req,resp);
         }else if(values[6].equals(servletPath)){
             doUpdate(req,resp);
-        }else if(values[7].equals(servletPath)){
-            doLogin(req,resp);
-        }else if(values[8].equals(servletPath)){
-            doJudgeLogin(req,resp);
         }
-
     }
 
-    private void doJudgeLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        PrintWriter out = response.getWriter();
+    /*private void doJudgeLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         System.out.println(username);
@@ -62,7 +58,6 @@ public class DeptServlet extends HttpServlet {
             preparedStatement.setString(1,username);
             preparedStatement.setString(2,password);
             resultSet = preparedStatement.executeQuery();
-            out.println("连上了吗");
             if (resultSet.next()){
                 loginSuccess = true;
             }
@@ -72,94 +67,95 @@ public class DeptServlet extends HttpServlet {
             DBUtil.close(connection,preparedStatement,resultSet);
         }
         if(loginSuccess){
+            HttpSession httpSession = request.getSession();
+            httpSession.setAttribute("username",username);
+
             response.sendRedirect(request.getContextPath()+"/employee");
         }else {
+            HttpSession httpSession = request.getSession();
+            httpSession.removeAttribute("username");
             response.sendRedirect(request.getContextPath()+"/error.jsp");
         }
 
-    }
+    }*/
 
 
-    private void doLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//        if("GET".equalsIgnoreCase(request.getMethod())){
-//            response.sendRedirect(request.getContextPath()+"/loginPage");
+//    private void doLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//        String projectName = request.getContextPath();
+//        PrintWriter out = response.getWriter();
+//        out.println("<!DOCTYPE html>");
+//        out.println("<html>");
+//        out.println("<head>");
+//        out.println("    <title>登录</title>");
+//        out.println("    <meta charset='UTF-8'>");
+//        out.println("    <style>");
+//        out.println("                body {");
+//        out.println("            font-family: Arial, sans-serif;");
+//        out.println("            margin: 0;");
+//        out.println("            padding: 0;");
+//        out.println("            display: flex;");
+//        out.println("            justify-content: center;");
+//        out.println("            align-items: center;");
+//        out.println("            height: 100vh;");
+//        out.println("            background-color: #f0f0f0;");
+//        out.println("        }");
+//        out.println("form-container {");
+//        out.println("            display: flex;");
+//        out.println("            justify-content: center;");
+//        out.println("            width: 100%;");
+//        out.println("        }");
+//        out.println("        form {");
+//        out.println("            width: 100%;");
+//        out.println("            max-width: 300px; /* 限制表单的最大宽度 */");
+//        out.println("            background: #ffffff;");
+//        out.println("            padding: 20px;");
+//        out.println("            border-radius: 8px;");
+//        out.println("            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);");
+//        out.println("        }");
+//        out.println("        h1 {");
+//        out.println("            text-align: center;");
+//        out.println("            color: #333;");
+//        out.println("        }");
+//        out.println("        hr {");
+//        out.println("            margin-bottom: 20px;");
+//        out.println("        }");
+//        out.println("        input[type='text'],");
+//        out.println("                input[type='password'] {");
+//        out.println("            width: calc(100% - 22px);");
+//        out.println("            padding: 10px;");
+//        out.println("            margin-bottom: 20px;");
+//        out.println("            border: 1px solid #ccc;");
+//        out.println("            border-radius: 5px;");
+//        out.println("        }");
+//        out.println("        input[type='submit'] {");
+//        out.println("            width: 100%;");
+//        out.println("            padding: 10px;");
+//        out.println("            border: none;");
+//        out.println("            border-radius: 5px;");
+//        out.println("            background-color: #007bff;");
+//        out.println("            color: white;");
+//        out.println("            cursor: pointer;");
+//        out.println("        }");
+//        out.println("        input[type='submit']:hover {");
+//        out.println("            background-color: #0056b3;");
+//        out.println("        }");
+//        out.println("    </style>");
+//        out.println("</head>");
+//        out.println("<body>");
+//        out.println("<div class='form-container'>");
+//        out.println("    <form action='"+projectName+"/judgeLogin' method='get'> <!-- 注意这里修正了action属性的值 -->");
+//        out.println("        <h1>用户登录</h1>");
+//        out.println("        <hr>");
+//        out.println("                用户名:<input type='text' name='username'><br>");
+//        out.println("                密码:<input type='password' name='password'><br>");
+//        out.println("        <input type='submit' value='login'>");
+//        out.println("    </form>");
+//        out.println("</div>");
+//        out.println("</body>");
+//        out.println("</html>");
 //
-//        }
-        String projectName = request.getContextPath();
-        PrintWriter out = response.getWriter();
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("    <title>登录</title>");
-        out.println("    <meta charset='UTF-8'>");
-        out.println("    <style>");
-        out.println("                body {");
-        out.println("            font-family: Arial, sans-serif;");
-        out.println("            margin: 0;");
-        out.println("            padding: 0;");
-        out.println("            display: flex;");
-        out.println("            justify-content: center;");
-        out.println("            align-items: center;");
-        out.println("            height: 100vh;");
-        out.println("            background-color: #f0f0f0;");
-        out.println("        }");
-        out.println("form-container {");
-        out.println("            display: flex;");
-        out.println("            justify-content: center;");
-        out.println("            width: 100%;");
-        out.println("        }");
-        out.println("        form {");
-        out.println("            width: 100%;");
-        out.println("            max-width: 300px; /* 限制表单的最大宽度 */");
-        out.println("            background: #ffffff;");
-        out.println("            padding: 20px;");
-        out.println("            border-radius: 8px;");
-        out.println("            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);");
-        out.println("        }");
-        out.println("        h1 {");
-        out.println("            text-align: center;");
-        out.println("            color: #333;");
-        out.println("        }");
-        out.println("        hr {");
-        out.println("            margin-bottom: 20px;");
-        out.println("        }");
-        out.println("        input[type='text'],");
-        out.println("                input[type='password'] {");
-        out.println("            width: calc(100% - 22px);");
-        out.println("            padding: 10px;");
-        out.println("            margin-bottom: 20px;");
-        out.println("            border: 1px solid #ccc;");
-        out.println("            border-radius: 5px;");
-        out.println("        }");
-        out.println("        input[type='submit'] {");
-        out.println("            width: 100%;");
-        out.println("            padding: 10px;");
-        out.println("            border: none;");
-        out.println("            border-radius: 5px;");
-        out.println("            background-color: #007bff;");
-        out.println("            color: white;");
-        out.println("            cursor: pointer;");
-        out.println("        }");
-        out.println("        input[type='submit']:hover {");
-        out.println("            background-color: #0056b3;");
-        out.println("        }");
-        out.println("    </style>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<div class='form-container'>");
-        out.println("    <form action='"+projectName+"/judgeLogin' method='post'> <!-- 注意这里修正了action属性的值 -->");
-        out.println("        <h1>用户登录</h1>");
-        out.println("        <hr>");
-        out.println("                用户名:<input type='text' name='username'><br>");
-        out.println("                密码:<input type='password' name='password'><br>");
-        out.println("        <input type='submit' value='login'>");
-        out.println("    </form>");
-        out.println("</div>");
-        out.println("</body>");
-        out.println("</html>");
-
-
-    }
+//
+//    }
 
 
     private void doUpdate(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -555,109 +551,116 @@ public class DeptServlet extends HttpServlet {
     }
 
     private void doList(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = resp.getWriter();
-        String projectName = req.getContextPath();
+        HttpSession session = req.getSession();
+        if(session != null && session.getAttribute("username") != null){
+            resp.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = resp.getWriter();
+            String projectName = req.getContextPath();
 
-        out.println("        <!DOCTYPE html>");
-        out.println("<html lang='en'>");
-        out.println("<head>");
-        out.println("    <meta charset='UTF-8'>");
-        out.println("    <meta name='viewport' content='width=device-width, initial-scale=1.0'>");
-        out.println("    <title>员工列表 - OA系统</title>");
-        out.println("    <style>");
-        out.println("                html, body {");
-        out.println("            height: 100%;");
-        out.println("            margin: 0;");
-        out.println("            font-family: Arial, sans-serif;");
-        out.println("        }");
-        out.println("        body {");
-        out.println("            display: flex;");
-        out.println("            justify-content: center;");
-        out.println("            align-items: center;");
-        out.println("            text-align: center;");
-        out.println("        }");
-        out.println("content {");
-        out.println("            width: 80%; /* 或者你希望的宽度 */");
-        out.println("        }");
-        out.println("        table {");
-        out.println("            width: 100%;");
-        out.println("            margin-top: 20px;");
-        out.println("            border-collapse: collapse;");
-        out.println("        }");
-        out.println("        table, th, td {");
-        out.println("            border: 2px solid black ;");
-        out.println("        }");
-        out.println("        th, td {");
-        out.println("            padding: 1px;");
-        out.println("            text-align: center;");
-        out.println("        }");
-        out.println("        #add {");
-        out.println("            margin-top: 100px;");
-        out.println("            display: block;");
-        out.println("        }");
-        out.println("    </style>");
-        out.println("</head>");
-        out.println("<body>");
+            out.println("        <!DOCTYPE html>");
+            out.println("<html lang='en'>");
+            out.println("<head>");
+            out.println("    <meta charset='UTF-8'>");
+            out.println("    <meta name='viewport' content='width=device-width, initial-scale=1.0'>");
+            out.println("    <title>员工列表 - OA系统</title>");
+            out.println("    <style>");
+            out.println("                html, body {");
+            out.println("            height: 100%;");
+            out.println("            margin: 0;");
+            out.println("            font-family: Arial, sans-serif;");
+            out.println("        }");
+            out.println("        body {");
+            out.println("            display: flex;");
+            out.println("            justify-content: center;");
+            out.println("            align-items: center;");
+            out.println("            text-align: center;");
+            out.println("        }");
+            out.println("content {");
+            out.println("            width: 80%; /* 或者你希望的宽度 */");
+            out.println("        }");
+            out.println("        table {");
+            out.println("            width: 100%;");
+            out.println("            margin-top: 20px;");
+            out.println("            border-collapse: collapse;");
+            out.println("        }");
+            out.println("        table, th, td {");
+            out.println("            border: 2px solid black ;");
+            out.println("        }");
+            out.println("        th, td {");
+            out.println("            padding: 1px;");
+            out.println("            text-align: center;");
+            out.println("        }");
+            out.println("        #add {");
+            out.println("            margin-top: 100px;");
+            out.println("            display: block;");
+            out.println("        }");
+            out.println("    </style>");
+            out.println("</head>");
+            out.println("<body>");
 
-        out.println("<script>");
-        out.println("                function del(empno){");
-        out.println("            if(window.confirm('亲，确认要删除吗，删除后不可恢复')){");
-        out.println("                document.location.href = '"+projectName+"/delete?empno=' + empno");
-        out.println("            }");
-        out.println("        }");
-        out.println("</script>");
+            out.println("<script>");
+            out.println("                function del(empno){");
+            out.println("            if(window.confirm('亲，确认要删除吗，删除后不可恢复')){");
+            out.println("                document.location.href = '"+projectName+"/delete?empno=' + empno");
+            out.println("            }");
+            out.println("        }");
+            out.println("</script>");
 
-        out.println("<div class='content'>");
-        out.println("    <h1>员工详情</h1>");
-        out.println("    <table>");
-        out.println("        <tr>");
-        out.println("            <th>姓名</th>");
-        out.println("            <th>员工编号</th>");
-        out.println("            <th>职位</th>");
-        out.println("            <th>工资</th>");
-        out.println("            <th>操作</th>");
-        out.println("        </tr>");
+            out.println("<div class='content'>");
+            out.println("    <h1>员工详情</h1>");
+            out.println("    <table>");
+            out.println("        <tr>");
+            out.println("            <th>姓名</th>");
+            out.println("            <th>员工编号</th>");
+            out.println("            <th>职位</th>");
+            out.println("            <th>工资</th>");
+            out.println("            <th>操作</th>");
+            out.println("        </tr>");
 
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        try {
-            connection = DBUtil.getConnection();
-            String sql = "select * from emp2";
-            preparedStatement = connection.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
+            Connection connection = null;
+            PreparedStatement preparedStatement = null;
+            ResultSet resultSet = null;
+            try {
+                connection = DBUtil.getConnection();
+                String sql = "select * from emp2";
+                preparedStatement = connection.prepareStatement(sql);
+                resultSet = preparedStatement.executeQuery();
 //            out.println("连上了吗");
-            while (resultSet.next()){
+                while (resultSet.next()){
 //                out.println("在这？");
-                String ename = resultSet.getString("ename");
-                String empno = resultSet.getString("empno");
-                String job = resultSet.getString("job");
-                String sal = resultSet.getString("sal");
-                out.println("        <tr>");
-                out.println("            <td>"+ename+"</td>");
-                out.println("            <td>"+empno+"</td>");
-                out.println("            <td>"+job+"</td>");
-                out.println("            <td>"+sal+"</td>");
-                out.println("            <td>");
-                out.println("                <a href='javascript:void(0)' onclick=del("+empno+")>删除</a>");
-                out.println("                <a href='"+projectName+"/edit?empno="+empno+"'>编辑</a>");
-                out.println("                <a href='"+projectName+"/detail?empno="+empno+"'>详情</a>");  //href='oa
-                out.println("            </td>");
-                out.println("        </tr>");
+                    String ename = resultSet.getString("ename");
+                    String empno = resultSet.getString("empno");
+                    String job = resultSet.getString("job");
+                    String sal = resultSet.getString("sal");
+                    out.println("        <tr>");
+                    out.println("            <td>"+ename+"</td>");
+                    out.println("            <td>"+empno+"</td>");
+                    out.println("            <td>"+job+"</td>");
+                    out.println("            <td>"+sal+"</td>");
+                    out.println("            <td>");
+                    out.println("                <a href='javascript:void(0)' onclick=del("+empno+")>删除</a>");
+                    out.println("                <a href='"+projectName+"/edit?empno="+empno+"'>编辑</a>");
+                    out.println("                <a href='"+projectName+"/detail?empno="+empno+"'>详情</a>");  //href='oa
+                    out.println("            </td>");
+                    out.println("        </tr>");
+                }
+                System.out.println("你输出到这了吗");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }finally {
+                DBUtil.close(connection,preparedStatement,resultSet);
             }
-            System.out.println("你输出到这了吗");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
-            DBUtil.close(connection,preparedStatement,resultSet);
+
+
+            out.println("    </table>");
+            out.println("    <a href='"+projectName+"/add' id='add'>新增员工</a>");
+            out.println("</div>");
+            out.println("</body>");
+            out.println("</html>");
+        }else {
+            resp.sendRedirect(req.getContextPath()+"/login");
         }
 
 
-        out.println("    </table>");
-        out.println("    <a href='"+projectName+"/add' id='add'>新增员工</a>");
-        out.println("</div>");
-        out.println("</body>");
-        out.println("</html>");
     }
 }
