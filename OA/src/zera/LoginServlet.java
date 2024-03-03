@@ -81,6 +81,7 @@ public class LoginServlet extends HttpServlet {
         out.println("        <hr>");
         out.println("                用户名:<input type='text' name='username'><br>");
         out.println("                密码:<input type='password' name='password'><br>");
+        out.println("    <input type='checkbox' name='f' value='1'>10天内免登录<br>");
         out.println("        <input type='submit' value='login'>");
         out.println("    </form>");
         out.println("</div>");

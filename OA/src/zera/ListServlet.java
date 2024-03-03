@@ -30,7 +30,6 @@ public class ListServlet extends HttpServlet {
             PrintWriter out = resp.getWriter();
             String projectName = req.getContextPath();
 
-            out.println("欢迎您："+httpSession.getAttribute("username"));
             out.println("        <!DOCTYPE html>");
             out.println("<html lang='en'>");
             out.println("<head>");
@@ -69,6 +68,24 @@ public class ListServlet extends HttpServlet {
             out.println("            display: block;");
             out.println("        }");
             out.println("    </style>");
+//            out.println("欢迎您："+httpSession.getAttribute("username") + "<br>");
+            out.println("<style>");
+            out.println("    .welcome-message {");
+            out.println("        color: #333;"); // 字体颜色
+            out.println("        font-size: 24px;"); // 字体大小
+            out.println("        margin: 20px 0;"); // 外边距
+            out.println("        font-weight: bold;"); // 字体加粗
+            out.println("    }");
+            out.println("    .logout-button {");
+            out.println("        display: inline-block;");
+            out.println("        padding: 10px 20px;");
+            out.println("        background-color: #f44336;"); // 背景色
+            out.println("        color: white;"); // 按钮文字颜色
+            out.println("        text-decoration: none;"); // 去除下划线
+            out.println("        border-radius: 5px;"); // 边框圆角
+            out.println("        margin: 20px 0;"); // 外边距
+            out.println("    }");
+            out.println("</style>");
             out.println("</head>");
             out.println("<body>");
 
@@ -125,13 +142,15 @@ public class ListServlet extends HttpServlet {
                 DBUtil.close(connection,preparedStatement,resultSet);
             }
 
-
+            out.println("<div class='welcome-message'>欢迎您：" + httpSession.getAttribute("username") + "</div>");
+            out.println("<a href='" + projectName + "/logout' class='logout-button'>安全退出</a>");
             out.println("    </table>");
             out.println("    <a href='"+projectName+"/add' id='add'>新增员工</a>");
             out.println("</div>");
             out.println("</body>");
             out.println("</html>");
-        }else {
+        }
+        else {
             resp.sendRedirect(req.getContextPath()+"/login");
         }
 

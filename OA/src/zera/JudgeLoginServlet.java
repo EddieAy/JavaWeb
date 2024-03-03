@@ -2,10 +2,7 @@ package zera;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 import util.DBUtil;
 
 import java.io.IOException;
@@ -44,7 +41,17 @@ public class JudgeLoginServlet extends HttpServlet {
         if(loginSuccess){
             HttpSession httpSession = request.getSession();
             httpSession.setAttribute("username",username);
-
+            String f = request.getParameter("f");
+            if("1".equals(f)){
+                Cookie c1 = new Cookie("loginName",username);
+                Cookie c2 = new Cookie("passWord",password);
+                c1.setMaxAge(60 * 60 * 24 * 10);
+                c2.setMaxAge(60 * 60 * 24 * 10);
+                c1.setPath(request.getContextPath());
+                c2.setPath(request.getContextPath());
+                response.addCookie(c1);
+                response.addCookie(c2);
+            }
             response.sendRedirect(request.getContextPath()+"/employee");
         }else {
             HttpSession httpSession = request.getSession();

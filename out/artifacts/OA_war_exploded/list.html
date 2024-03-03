@@ -25,8 +25,7 @@
             border-collapse: collapse;
         }
         table, th, td {
-            border: 2px solid black ;
-
+            border: 2px solid black;
         }
         th, td {
             padding: 1px;
@@ -36,24 +35,20 @@
             margin-top: 100px;
             display: block;
         }
-        /*a {*/
-        /*    margin-top: 400px;*/
-        /*    display: block; !* 将inline-block改为block *!*/
-        /*}*/
     </style>
 </head>
 <body>
+
 <script>
     function del(empno){
-
         if(window.confirm('亲，确认要删除吗，删除后不可恢复')){
-            document.location.href = '/oa/delete?empno=' + empno
+            document.location.href = '${projectName}/delete?empno=' + empno;
         }
     }
 </script>
 
 <div class='content'>
-    <h1>部门列表</h1>
+    <h1>员工详情</h1>
     <table>
         <tr>
             <th>姓名</th>
@@ -62,21 +57,11 @@
             <th>工资</th>
             <th>操作</th>
         </tr>
-        <!-- 数据行 -->
-        <tr>
-            <td>A</td>
-            <td>A1</td>
-            <td>A2</td>
-            <td>A3</td>
-            <td>
-                <a href='javascript:void(0)' onclick=del(10)>删除</a>
-                <a href='edit.html'>编辑</a>
-                <a href='detail.html'>详情</a>
-            </td>
-        </tr>
-
+        <!-- 数据库查询结果的动态插入位置 -->
     </table>
-    <a href='add.html' id='add'>新增部门</a>
+    <a href='${projectName}/add' id='add'>新增员工</a><br>
+<!--    <input type='checkbox' name='f' value='1'>10天内免登录<br>-->
 </div>
+<!-- 欢迎信息和退出按钮的位置可能在这里，但在原代码中是动态生成的 -->
 </body>
 </html>
