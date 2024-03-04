@@ -140,8 +140,9 @@ public class ListServlet extends HttpServlet {
         }finally {
             DBUtil.close(connection,preparedStatement,resultSet);
         }
-
+        int count = (Integer) req.getServletContext().getAttribute("onlineCount");
         out.println("<div class='welcome-message'>欢迎您：" + httpSession.getAttribute("username") + "</div>");
+        out.println("<div class='welcome-message'>当前在线人数：" + count + "</div>");
         out.println("<a href='" + projectName + "/logout' class='logout-button'>安全退出</a>");
         out.println("    </table>");
         out.println("    <a href='"+projectName+"/add' id='add'>新增员工</a>");

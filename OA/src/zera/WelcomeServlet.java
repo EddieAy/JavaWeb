@@ -1,5 +1,6 @@
 package zera;
 
+import bean.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -54,6 +55,8 @@ public class WelcomeServlet extends HttpServlet {
             if(loginSuccess){
                 HttpSession session = request.getSession();
                 session.setAttribute("username",username);
+                User user = new User(username,password);
+                session.setAttribute("user",user);
                 response.sendRedirect(request.getContextPath()+"/employee");
             }else {
                 response.sendRedirect(request.getContextPath()+"/error.jsp");

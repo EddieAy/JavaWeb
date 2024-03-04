@@ -17,11 +17,19 @@ public class LoginCheckFilter implements Filter {
         HttpSession session = request.getSession(false);
         if("/welcome".equals(servletPath) || "/welcome.html".equals(servletPath) ||
                 "/login".equals(servletPath) || "/logout".equals(servletPath) || "/judgeLogin".equals(servletPath) ||
-                session != null && session.getAttribute("username") != null){
+                session != null && session.getAttribute("user") != null){
             filterChain.doFilter(request,response);
         }else {
             response.sendRedirect(request.getContextPath()+"/login");
         }
+
+/*        if("/welcome".equals(servletPath) || "/welcome.html".equals(servletPath) ||
+                "/login".equals(servletPath) || "/logout".equals(servletPath) || "/judgeLogin".equals(servletPath) ||
+                session != null && session.getAttribute("username") != null){
+            filterChain.doFilter(request,response);
+        }else {
+            response.sendRedirect(request.getContextPath()+"/login");
+        }*/
 
     }
 }

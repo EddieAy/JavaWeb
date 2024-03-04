@@ -1,5 +1,6 @@
 package zera;
 
+import bean.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -41,6 +42,8 @@ public class JudgeLoginServlet extends HttpServlet {
         if(loginSuccess){
             HttpSession httpSession = request.getSession();
             httpSession.setAttribute("username",username);
+            User user = new User(username,password);
+            httpSession.setAttribute("user",user);
             String f = request.getParameter("f");
             if("1".equals(f)){
                 Cookie c1 = new Cookie("loginName",username);
